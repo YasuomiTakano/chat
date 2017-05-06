@@ -1,0 +1,26 @@
+= render 'shared/side_bar'
+.chat-main
+  .chat-main__header
+    .chat-main__header--group.clearfix
+      .chat-main__header--group-name
+        / = @group.name
+        @group.name
+      / = link_to edit_group_path(@group), class: 'chat-main__header--group-edit-btn' do
+      %a.chat-main__header--group-edit-btn
+        edit
+    .chat-main__header-members
+      MEMBER:
+      %i
+        / = @group.users.pluck(:name).join(' ')
+        @group.users
+  .chat-main__body
+    .chat-main__body--messages-list
+      / = render @messages
+  .chat-main__footer
+    / = form_for [@group, @message], html: {class: 'chat-main__footer-form'} do |f|
+    /   .chat-main__footer-body
+    /     = f.text_field :body, placeholder: 'type a message', class: 'message'
+    /     = f.label :image, class: 'chat-file' do
+    /       = f.file_field :image, class: 'image'
+    /       %i.fa.fa-image
+    /   = f.submit 'Send', class: 'submit'
